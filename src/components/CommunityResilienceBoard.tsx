@@ -129,19 +129,21 @@ export const CommunityResilienceBoard: React.FC<CommunityResilienceBoardProps> =
 
   return (
     <section
-      className="w-full rounded-2xl bg-slate-900/80 border border-slate-800 p-5 sm:p-6 shadow-xl space-y-6"
+      className="w-full rounded-3xl glass-panel p-6 sm:p-8 space-y-8"
       aria-labelledby="community-heading"
     >
       {/* Header & Report Button */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-white/10">
         <div>
-          <div className="flex items-center space-x-2">
-            <Users className="w-5 h-5 text-emerald-400" aria-hidden="true" />
-            <h2 id="community-heading" className="text-lg font-bold text-white tracking-tight">
+          <div className="flex items-center space-x-2.5">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-500 to-indigo-400 flex items-center justify-center text-slate-950 font-bold shadow-lg shadow-purple-950/50">
+              <Users className="w-5 h-5 text-slate-950" aria-hidden="true" />
+            </div>
+            <h2 id="community-heading" className="text-xl font-extrabold text-white tracking-tight">
               Community Resilience & Hyperlocal Action Board
             </h2>
           </div>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-400 mt-1">
             Crowdsourced clean air sanctuaries, school carpool pods, and anti-burning dispatch networks in {city.name}.
           </p>
         </div>
@@ -149,7 +151,7 @@ export const CommunityResilienceBoard: React.FC<CommunityResilienceBoardProps> =
         <button
           type="button"
           onClick={() => setIsReportModalOpen(true)}
-          className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-500 hover:to-amber-500 text-white text-xs font-bold shadow-lg shadow-rose-950/40 transition-all focus-visible:ring-2 focus-visible:ring-rose-400 focus:outline-none"
+          className="flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-rose-600 via-rose-500 to-amber-500 hover:from-rose-500 hover:to-amber-400 text-white text-xs font-black shadow-lg shadow-rose-950/50 transition-all focus-visible:ring-2 focus-visible:ring-rose-400 focus:outline-none"
         >
           <PlusCircle className="w-4 h-4" aria-hidden="true" />
           <span>Report Toxic Smoke / Burning</span>
@@ -157,87 +159,87 @@ export const CommunityResilienceBoard: React.FC<CommunityResilienceBoardProps> =
       </div>
 
       {/* Community Resilience Collective Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
-            <Home className="w-5 h-5" />
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="p-4 rounded-2xl glass-panel flex items-center space-x-3.5 glass-card-interactive border border-emerald-500/20">
+          <div className="w-11 h-11 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 shadow-md">
+            <Home className="w-6 h-6" />
           </div>
           <div>
-            <span className="text-[10px] text-slate-400 uppercase font-semibold block">Clean Air Hubs</span>
-            <span className="text-base font-bold text-white font-mono">14 Public Sanctuaries</span>
+            <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider block">Clean Air Hubs</span>
+            <span className="text-lg font-black text-white font-mono">14 Public Sanctuaries</span>
           </div>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0">
-            <Car className="w-5 h-5" />
+        <div className="p-4 rounded-2xl glass-panel flex items-center space-x-3.5 glass-card-interactive border border-cyan-500/20">
+          <div className="w-11 h-11 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0 shadow-md">
+            <Car className="w-6 h-6" />
           </div>
           <div>
-            <span className="text-[10px] text-slate-400 uppercase font-semibold block">Active School Carpool Pods</span>
-            <span className="text-base font-bold text-white font-mono">38 Coordinated Pods</span>
+            <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider block">Active School Carpool Pods</span>
+            <span className="text-lg font-black text-white font-mono">38 Coordinated Pods</span>
           </div>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
-            <Radio className="w-5 h-5" />
+        <div className="p-4 rounded-2xl glass-panel flex items-center space-x-3.5 glass-card-interactive border border-purple-500/20">
+          <div className="w-11 h-11 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center shrink-0 shadow-md">
+            <Radio className="w-6 h-6" />
           </div>
           <div>
-            <span className="text-[10px] text-slate-400 uppercase font-semibold block">OASIS CAP v1.2 Protocol</span>
-            <span className="text-base font-bold text-white font-mono">100% Interoperable</span>
+            <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider block">OASIS CAP v1.2 Protocol</span>
+            <span className="text-lg font-black text-white font-mono">100% Interoperable</span>
           </div>
         </div>
       </div>
 
       {/* Alerts Feed */}
-      <div className="space-y-3">
+      <div className="space-y-4">
         {alerts.map((alert) => (
           <div
             key={alert.id}
-            className={`p-4 rounded-xl border transition-all ${
+            className={`p-5 rounded-2xl border transition-all duration-200 glass-card-interactive ${
               alert.severity === 'EMERGENCY'
-                ? 'bg-rose-950/20 border-rose-900/50 hover:border-rose-700/60'
-                : 'bg-slate-950 border-slate-800 hover:border-slate-700'
+                ? 'bg-rose-950/25 border-rose-900/60 shadow-xl shadow-rose-950/20'
+                : 'glass-panel hover:border-white/20'
             }`}
           >
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-800/80">
-              <div className="flex items-center space-x-2">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-3 border-b border-white/10">
+              <div className="flex items-center space-x-2.5">
                 <span
-                  className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase font-mono ${
+                  className={`px-2.5 py-0.5 rounded-md text-[10px] font-black uppercase font-mono ${
                     alert.severity === 'EMERGENCY'
-                      ? 'bg-rose-950 text-rose-300 border border-rose-600/60'
-                      : 'bg-emerald-950 text-emerald-300 border border-emerald-600/60'
+                      ? 'bg-rose-950 text-rose-300 border border-rose-500/80 shadow-sm'
+                      : 'bg-emerald-950 text-emerald-300 border border-emerald-500/80 shadow-sm'
                   }`}
                 >
                   {alert.severity}
                 </span>
-                <span className="text-xs font-bold text-white flex items-center gap-1">
-                  <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                <span className="text-sm font-bold text-white flex items-center gap-1.5">
+                  <MapPin className="w-4 h-4 text-slate-400" />
                   {alert.neighborhood}
                 </span>
               </div>
 
-              <div className="flex items-center space-x-3 text-[11px] text-slate-400 font-mono">
+              <div className="flex items-center space-x-3 text-xs text-slate-400 font-mono">
                 <span>{alert.timestamp}</span>
-                <span className="text-emerald-400 font-semibold">• {alert.status}</span>
+                <span className="text-emerald-400 font-bold">• {alert.status}</span>
               </div>
             </div>
 
-            <p className="text-xs text-slate-300 mt-2.5 leading-relaxed">{alert.description}</p>
+            <p className="text-xs text-slate-300 mt-3 leading-relaxed">{alert.description}</p>
 
             {/* Actions Suggested */}
-            <div className="mt-3 pt-2 border-t border-slate-800/60 flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-3">
+            <div className="mt-4 pt-3 border-t border-white/5 flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-3">
               <div className="text-[11px] text-slate-400 space-y-0.5">
-                <span className="font-semibold text-slate-300">Action Directives:</span>{' '}
+                <span className="font-bold text-slate-200">Action Directives:</span>{' '}
                 {alert.actionsSuggested.join(' | ')}
               </div>
 
-              {/* OASIS CAP XML Action */}
+              {/* OASIS CAP XML Action Buttons */}
               <div className="flex items-center space-x-2 shrink-0">
                 <button
                   type="button"
                   onClick={() => setSelectedAlertForXml(alert)}
-                  className="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 text-[11px] font-mono flex items-center space-x-1.5 transition-colors focus-visible:ring-2 focus-visible:ring-emerald-400 focus:outline-none"
+                  className="px-3 py-1.5 rounded-xl glass-panel hover:bg-slate-800 text-slate-200 text-xs font-mono font-bold flex items-center space-x-1.5 transition-colors focus-visible:ring-2 focus-visible:ring-emerald-400 focus:outline-none"
                 >
                   <FileCode className="w-3.5 h-3.5 text-cyan-400" />
                   <span>Inspect CAP v1.2 XML</span>
@@ -246,11 +248,11 @@ export const CommunityResilienceBoard: React.FC<CommunityResilienceBoardProps> =
                 <button
                   type="button"
                   onClick={() => handleDownloadXml(alert)}
-                  className="p-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-400 hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-emerald-400 focus:outline-none"
+                  className="p-1.5 rounded-xl glass-panel hover:bg-slate-800 text-slate-400 hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-emerald-400 focus:outline-none"
                   title="Download OASIS CAP v1.2 XML file"
                   aria-label="Download CAP XML"
                 >
-                  <Download className="w-3.5 h-3.5" />
+                  <Download className="w-4 h-4" />
                 </button>
               </div>
             </div>
@@ -261,14 +263,14 @@ export const CommunityResilienceBoard: React.FC<CommunityResilienceBoardProps> =
       {/* OASIS CAP XML Inspection Modal */}
       {selectedAlertForXml && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in"
           role="dialog"
           aria-modal="true"
           aria-labelledby="cap-xml-title"
         >
-          <div className="w-full max-w-2xl bg-slate-900 border border-slate-700 rounded-2xl p-5 shadow-2xl space-y-4">
+          <div className="w-full max-w-2xl bg-slate-900 border border-slate-700 rounded-3xl p-6 shadow-2xl space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2.5">
                 <FileCode className="w-5 h-5 text-cyan-400" aria-hidden="true" />
                 <h3 id="cap-xml-title" className="text-sm font-bold text-white">
                   OASIS Common Alerting Protocol (CAP v1.2) XML Dispatch
@@ -288,7 +290,7 @@ export const CommunityResilienceBoard: React.FC<CommunityResilienceBoardProps> =
               Standard emergency broadcast XML schema ingested by municipal civil defense, weather portals, and IoT smart signs.
             </p>
 
-            <pre className="p-3 rounded-xl bg-slate-950 border border-slate-800 text-[11px] font-mono text-emerald-300 overflow-x-auto max-h-80 leading-relaxed">
+            <pre className="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-[11px] font-mono text-emerald-300 overflow-x-auto max-h-80 leading-relaxed shadow-inner">
               {generateOasisCapXml(selectedAlertForXml, city, pollutants)}
             </pre>
 
@@ -307,7 +309,7 @@ export const CommunityResilienceBoard: React.FC<CommunityResilienceBoardProps> =
               <button
                 type="button"
                 onClick={() => handleDownloadXml(selectedAlertForXml)}
-                className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold flex items-center space-x-1.5 transition-colors"
+                className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold flex items-center space-x-1.5 transition-colors shadow-lg shadow-emerald-950/40"
               >
                 <Download className="w-4 h-4" />
                 <span>Download .xml</span>
@@ -320,14 +322,14 @@ export const CommunityResilienceBoard: React.FC<CommunityResilienceBoardProps> =
       {/* Report Open Burning / Incident Modal */}
       {isReportModalOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in"
           role="dialog"
           aria-modal="true"
           aria-labelledby="report-modal-title"
         >
-          <div className="w-full max-w-md bg-slate-900 border border-slate-700 rounded-2xl p-5 shadow-2xl space-y-4">
+          <div className="w-full max-w-md bg-slate-900 border border-slate-700 rounded-3xl p-6 shadow-2xl space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-              <div className="flex items-center space-x-2 text-rose-400">
+              <div className="flex items-center space-x-2 text-rose-400 font-bold">
                 <AlertTriangle className="w-5 h-5" aria-hidden="true" />
                 <h3 id="report-modal-title" className="text-sm font-bold text-white">
                   Report Waste Burning or Toxic Plume
@@ -343,7 +345,7 @@ export const CommunityResilienceBoard: React.FC<CommunityResilienceBoardProps> =
               </button>
             </div>
 
-            <form onSubmit={handleCreateReport} className="space-y-3 text-xs">
+            <form onSubmit={handleCreateReport} className="space-y-3.5 text-xs">
               <div>
                 <label className="text-slate-300 font-semibold block mb-1">
                   Neighborhood / Location:
@@ -354,7 +356,7 @@ export const CommunityResilienceBoard: React.FC<CommunityResilienceBoardProps> =
                   placeholder="e.g. South Outer Ring Road Sector 4"
                   value={newNeighborhood}
                   onChange={(e) => setNewNeighborhood(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-white placeholder-slate-500 focus:border-rose-500 focus:outline-none"
+                  className="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-white placeholder-slate-500 focus:border-rose-500 focus:outline-none"
                 />
               </div>
 
@@ -368,7 +370,7 @@ export const CommunityResilienceBoard: React.FC<CommunityResilienceBoardProps> =
                   placeholder="e.g. Municipal dry leaf & plastic burning causing visible dense white smoke; blowing into nearby school playground."
                   value={newDescription}
                   onChange={(e) => setNewDescription(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-white placeholder-slate-500 focus:border-rose-500 focus:outline-none"
+                  className="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-white placeholder-slate-500 focus:border-rose-500 focus:outline-none"
                 />
               </div>
 
@@ -379,7 +381,7 @@ export const CommunityResilienceBoard: React.FC<CommunityResilienceBoardProps> =
                   onChange={(e) =>
                     setNewSeverity(e.target.value as 'EMERGENCY' | 'WARNING' | 'INFO')
                   }
-                  className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-white focus:border-rose-500 focus:outline-none"
+                  className="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-white focus:border-rose-500 focus:outline-none"
                 >
                   <option value="EMERGENCY">Emergency (Active Dense Smoke / Immediate Risk)</option>
                   <option value="WARNING">Warning (Localized Smoldering)</option>
@@ -387,17 +389,17 @@ export const CommunityResilienceBoard: React.FC<CommunityResilienceBoardProps> =
                 </select>
               </div>
 
-              <div className="pt-2 flex items-center justify-end space-x-2">
+              <div className="pt-2 flex items-center justify-end space-x-2.5">
                 <button
                   type="button"
                   onClick={() => setIsReportModalOpen(false)}
-                  className="px-3 py-2 rounded-lg bg-slate-800 text-slate-300 hover:text-white"
+                  className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold flex items-center space-x-1.5 shadow-lg shadow-rose-950/40"
+                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-500 hover:to-amber-500 text-white font-bold flex items-center space-x-1.5 shadow-lg shadow-rose-950/40"
                 >
                   <Send className="w-3.5 h-3.5" />
                   <span>Broadcast Report & Generate CAP XML</span>

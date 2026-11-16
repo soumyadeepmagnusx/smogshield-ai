@@ -122,8 +122,8 @@ export const App: React.FC = () => {
 
   return (
     <div
-      className={`min-h-screen flex flex-col font-sans transition-colors ${
-        highContrast ? 'bg-black text-white contrast-125' : 'bg-[#090d16] text-slate-100'
+      className={`min-h-screen flex flex-col font-sans transition-colors relative selection:bg-emerald-500 selection:text-black ${
+        highContrast ? 'bg-black text-white contrast-125' : 'bg-mesh-dark text-slate-100'
       }`}
     >
       {/* Primary Top Navigation */}
@@ -157,18 +157,18 @@ export const App: React.FC = () => {
           sourceLabel={sourceLabel}
         />
 
-        {/* Tabbed Navigation Bar */}
+        {/* Dazzling Glassmorphic Tabbed Navigation Bar */}
         <nav
-          className="flex items-center gap-2 overflow-x-auto no-scrollbar p-1.5 rounded-2xl bg-slate-950/80 border border-slate-800"
+          className="flex items-center gap-2 overflow-x-auto no-scrollbar p-2 rounded-2xl glass-panel shadow-2xl"
           aria-label="Main Application Sections"
         >
           {[
-            { id: 'copilot', label: 'AeroGuard Copilot', icon: Bot, badge: 'Gemini AI' },
-            { id: 'diurnal', label: 'Diurnal Routine Optimizer', icon: Calendar, badge: '24h Timeline' },
-            { id: 'indoor_hacks', label: 'Indoor Hacks & DIY Lab', icon: Wrench, badge: 'Corsi-Rosenthal' },
-            { id: 'alternatives', label: 'Sustainable Alternatives', icon: Leaf, badge: `${selectedAlternatives.length} Active` },
-            { id: 'impact', label: 'Direct Impact Engine', icon: Flame, badge: `${impactMetrics.berkeleyCigarettesAvoided} Cigs Cut` },
-            { id: 'community', label: 'Community Resilience', icon: Users, badge: 'OASIS CAP v1.2' },
+            { id: 'copilot', label: 'AeroGuard Copilot', icon: Bot, badge: 'Gemini AI', color: 'from-emerald-500 to-teal-400' },
+            { id: 'diurnal', label: 'Diurnal Routine Optimizer', icon: Calendar, badge: '24h Timeline', color: 'from-amber-500 to-orange-400' },
+            { id: 'indoor_hacks', label: 'Indoor Hacks & DIY Lab', icon: Wrench, badge: 'Corsi-Rosenthal', color: 'from-cyan-500 to-blue-400' },
+            { id: 'alternatives', label: 'Sustainable Alternatives', icon: Leaf, badge: `${selectedAlternatives.length} Active`, color: 'from-teal-500 to-emerald-400' },
+            { id: 'impact', label: 'Direct Impact Engine', icon: Flame, badge: `${impactMetrics.berkeleyCigarettesAvoided} Cigs Cut`, color: 'from-rose-500 to-pink-400' },
+            { id: 'community', label: 'Community Resilience', icon: Users, badge: 'OASIS CAP v1.2', color: 'from-purple-500 to-indigo-400' },
           ].map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -177,18 +177,18 @@ export const App: React.FC = () => {
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all focus-visible:ring-2 focus-visible:ring-emerald-400 focus:outline-none ${
+                className={`flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-200 focus-visible:ring-2 focus-visible:ring-emerald-400 focus:outline-none ${
                   isActive
-                    ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-lg shadow-emerald-950/40'
-                    : 'bg-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-900'
+                    ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-lg shadow-emerald-950/60 ring-1 ring-emerald-400/50 scale-[1.02]'
+                    : 'bg-transparent text-slate-400 hover:text-slate-100 hover:bg-slate-800/60'
                 }`}
                 aria-current={isActive ? 'page' : undefined}
               >
                 <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-slate-400'}`} aria-hidden="true" />
                 <span>{tab.label}</span>
                 <span
-                  className={`text-[9px] font-mono px-1.5 py-0.2 rounded-full ${
-                    isActive ? 'bg-black/30 text-white' : 'bg-slate-800 text-slate-400'
+                  className={`text-[9px] font-mono px-2 py-0.5 rounded-full font-bold ${
+                    isActive ? 'bg-black/40 text-emerald-300 border border-emerald-400/30' : 'bg-slate-800/80 text-slate-400 border border-white/5'
                   }`}
                 >
                   {tab.badge}
@@ -214,16 +214,16 @@ export const App: React.FC = () => {
               {/* Side Quick Action Cards */}
               <div className="lg:col-span-4 space-y-4">
                 {/* Corsi-Rosenthal Quick Hack Card */}
-                <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2">
+                <div className="p-5 rounded-2xl glass-panel space-y-2.5 glass-card-interactive border border-emerald-500/20">
                   <div className="flex items-center justify-between text-xs">
                     <span className="font-bold text-emerald-400 flex items-center gap-1.5">
                       <Wrench className="w-4 h-4" /> Recommended Hack
                     </span>
-                    <span className="font-mono text-cyan-400 text-[10px]">$58 / ₹4,800</span>
+                    <span className="font-mono text-cyan-300 font-bold text-[11px]">$58 / ₹4,800</span>
                   </div>
                   <h3 className="text-sm font-bold text-white">The Corsi-Rosenthal Box</h3>
                   <p className="text-xs text-slate-300 leading-relaxed">
-                    Build a 4-filter MERV 13 box fan cube. Delivers 430 CFM of Clean Air Delivery Rate (CADR)—outperforming $500 commercial HEPA units.
+                    Build a 4-filter MERV 13 box fan cube. Delivers <strong>430 CFM of Clean Air Delivery Rate (CADR)</strong>—outperforming $500 commercial HEPA units.
                   </p>
                   <button
                     type="button"
@@ -236,12 +236,12 @@ export const App: React.FC = () => {
                 </div>
 
                 {/* Diurnal Solar Window Card */}
-                <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2">
+                <div className="p-5 rounded-2xl glass-panel space-y-2.5 glass-card-interactive border border-amber-500/20">
                   <div className="flex items-center justify-between text-xs">
                     <span className="font-bold text-amber-400 flex items-center gap-1.5">
                       <Calendar className="w-4 h-4" /> Diurnal Optimization
                     </span>
-                    <span className="font-mono text-emerald-400 text-[10px]">12:30 - 15:00</span>
+                    <span className="font-mono text-emerald-400 font-bold text-[11px]">12:30 - 15:00</span>
                   </div>
                   <h3 className="text-sm font-bold text-white">Solar Convective Aeration</h3>
                   <p className="text-xs text-slate-300 leading-relaxed">
@@ -258,16 +258,16 @@ export const App: React.FC = () => {
                 </div>
 
                 {/* Direct Impact Preview Card */}
-                <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2">
+                <div className="p-5 rounded-2xl glass-panel space-y-2.5 glass-card-interactive border border-rose-500/20">
                   <div className="flex items-center justify-between text-xs">
                     <span className="font-bold text-cyan-400 flex items-center gap-1.5">
                       <Flame className="w-4 h-4" /> Household Impact
                     </span>
-                    <span className="font-mono text-emerald-400 text-[10px]">
+                    <span className="font-mono text-emerald-300 font-bold text-[11px]">
                       {impactMetrics.communityResiliencePoints} PTS
                     </span>
                   </div>
-                  <div className="text-2xl font-black font-mono text-amber-300">
+                  <div className="text-3xl font-black font-mono text-amber-300">
                     {impactMetrics.berkeleyCigarettesAvoided} Cigarettes
                   </div>
                   <p className="text-xs text-slate-300">
@@ -316,7 +316,7 @@ export const App: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800/80 bg-slate-950 py-6 text-xs text-slate-400 mt-12">
+      <footer className="border-t border-white/10 bg-[#07090f]/90 backdrop-blur-md py-6 text-xs text-slate-400 mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center space-x-2">
             <span className="font-bold text-white font-mono">SmogShield.AI</span>
@@ -324,7 +324,7 @@ export const App: React.FC = () => {
             <span className="font-bold text-emerald-400">Team Spectronz</span>
           </div>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 font-medium">
             <button
               type="button"
               onClick={() => setIsPitchDeckOpen(true)}

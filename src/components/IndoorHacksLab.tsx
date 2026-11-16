@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   Wrench,
   ShieldCheck,
+  Wind,
 } from 'lucide-react';
 import { IndoorHack, FamilyProfile } from '../types';
 import { INDOOR_HACKS } from '../constants/hacks';
@@ -27,54 +28,59 @@ export const IndoorHacksLab: React.FC<IndoorHacksLabProps> = ({ familyProfile })
 
   return (
     <section
-      className="w-full rounded-2xl bg-slate-900/80 border border-slate-800 p-5 sm:p-6 shadow-xl space-y-6"
+      className="w-full rounded-3xl glass-panel p-6 sm:p-8 space-y-8"
       aria-labelledby="hacks-heading"
     >
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b border-slate-800">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-white/10">
         <div>
-          <div className="flex items-center space-x-2">
-            <Wrench className="w-5 h-5 text-emerald-400" aria-hidden="true" />
-            <h2 id="hacks-heading" className="text-lg font-bold text-white tracking-tight">
-              Indoor Air Quality Hacks & DIY Lab
+          <div className="flex items-center space-x-2.5">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-slate-950 font-bold shadow-lg shadow-emerald-950/50">
+              <Wrench className="w-5 h-5 text-slate-950" aria-hidden="true" />
+            </div>
+            <h2 id="hacks-heading" className="text-xl font-extrabold text-white tracking-tight">
+              Indoor Air Quality Hacks & DIY Engineering Lab
             </h2>
           </div>
-          <p className="text-xs text-slate-400 mt-0.5">
-            Frugal engineering solutions and physics-grounded hacks to drop indoor PM2.5 by up to 92%.
+          <p className="text-xs text-slate-400 mt-1 max-w-xl">
+            Frugal engineering solutions and fluid mechanics models that drop indoor PM2.5 by up to 92% without commercial markups.
           </p>
         </div>
 
-        <div className="text-[11px] font-mono px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-300">
-          <span>Household Dwelling: </span>
+        <div className="flex items-center space-x-2 text-xs font-mono px-3.5 py-2 rounded-2xl glass-panel text-slate-200 border border-emerald-500/30">
+          <span className="text-slate-400">Dwelling:</span>
           <span className="text-emerald-400 font-bold">
-            {familyProfile.housingType.replace(/_/g, ' ')} ({familyProfile.insulationLevel} Insulation)
+            {familyProfile.housingType.replace(/_/g, ' ')} ({familyProfile.insulationLevel})
           </span>
         </div>
       </div>
 
-      {/* Interactive Corsi-Rosenthal Physics & CADR Sizing Lab */}
-      <div className="rounded-xl bg-slate-950 border border-slate-800 p-4 sm:p-5">
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+      {/* Interactive Corsi-Rosenthal Fluid Mechanics & 3D Visualizer Lab */}
+      <div className="rounded-2xl glass-panel-glow p-5 sm:p-7 relative overflow-hidden">
+        {/* Subtle background glow */}
+        <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 pb-5 border-b border-white/10">
           <div>
             <div className="flex items-center space-x-2">
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-                Interactive Fluid Mechanics Lab
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-sm">
+                Interactive Fluid Mechanics Simulator
               </span>
-              <h3 className="text-sm font-bold text-white">
-                Corsi-Rosenthal CADR & Room Air Exchange (ACH) Simulator
+              <h3 className="text-base font-bold text-white">
+                Corsi-Rosenthal Box (CADR & ACH Sizing Engine)
               </h3>
             </div>
             <p className="text-xs text-slate-400 mt-1">
-              Simulate fluid dynamics, filter face velocity derating, and room volume particle clearance in real time.
+              Adjust fan geometry, MERV filter grade, and room dimensions to simulate particle clearance in real time.
             </p>
           </div>
 
-          {/* Adequacy Badge */}
+          {/* Adequacy Safety Badge */}
           <div
-            className={`px-3 py-1.5 rounded-xl border text-xs font-bold flex items-center space-x-1.5 ${
+            className={`px-4 py-2 rounded-xl border text-xs font-bold flex items-center space-x-2 shadow-lg transition-all ${
               crOutput.isAdequateForSmogEmergency
-                ? 'bg-emerald-950/80 border-emerald-500/50 text-emerald-300'
-                : 'bg-amber-950/80 border-amber-500/50 text-amber-300'
+                ? 'bg-emerald-950/80 border-emerald-500/60 text-emerald-300 shadow-emerald-950/40'
+                : 'bg-amber-950/80 border-amber-500/60 text-amber-300 shadow-amber-950/40'
             }`}
           >
             <ShieldCheck className="w-4 h-4" aria-hidden="true" />
@@ -86,85 +92,85 @@ export const IndoorHacksLab: React.FC<IndoorHacksLabProps> = ({ familyProfile })
           </div>
         </div>
 
-        {/* Simulator Controls & Live Output Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-4">
+        {/* 3D Animated Schematic & Controls Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-6">
           {/* Controls: Left 6 columns */}
-          <div className="lg:col-span-6 space-y-4">
-            {/* Filter Count Selector */}
+          <div className="lg:col-span-6 space-y-5">
+            {/* Filter Count Geometry Buttons */}
             <div>
-              <label className="text-xs font-semibold text-slate-300 block mb-1.5">
-                Filter Geometry & Configuration:
+              <label className="text-xs font-bold uppercase tracking-wider text-slate-300 block mb-2">
+                1. Filter Geometry & Assembly:
               </label>
-              <div className="grid grid-cols-4 gap-2">
+              <div className="grid grid-cols-4 gap-2.5">
                 {[
-                  { count: 1, label: '1-Filter', desc: 'Flat Back' },
-                  { count: 2, label: '2-Filter', desc: 'V-Wedge' },
-                  { count: 4, label: '4-Filter', desc: 'Cube (Ideal)' },
-                  { count: 5, label: '5-Filter', desc: 'Pentagon' },
+                  { count: 1, label: '1-Filter', desc: 'Flat Back (High Drag)' },
+                  { count: 2, label: '2-Filter', desc: 'V-Wedge (Moderate)' },
+                  { count: 4, label: '4-Filter', desc: 'Cube (Ideal 430 CFM)' },
+                  { count: 5, label: '5-Filter', desc: 'Pentagon (Max Media)' },
                 ].map((item) => (
                   <button
                     key={item.count}
                     type="button"
                     onClick={() => setCrConfig({ ...crConfig, filterCount: item.count as 1 | 2 | 4 | 5 })}
-                    className={`p-2 rounded-lg border text-left transition-all focus-visible:ring-2 focus-visible:ring-emerald-400 focus:outline-none ${
+                    className={`p-2.5 rounded-xl border text-left transition-all ${
                       crConfig.filterCount === item.count
-                        ? 'bg-emerald-950/80 border-emerald-500 text-emerald-300 font-bold'
-                        : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
+                        ? 'bg-emerald-950/80 border-emerald-400 text-emerald-200 font-bold shadow-lg shadow-emerald-950/40 ring-1 ring-emerald-500/50'
+                        : 'bg-slate-900/60 border-white/5 text-slate-400 hover:text-slate-200 hover:border-white/20'
                     }`}
                   >
-                    <div className="text-xs">{item.label}</div>
-                    <div className="text-[10px] text-slate-400">{item.desc}</div>
+                    <div className="text-xs font-bold">{item.label}</div>
+                    <div className="text-[10px] text-slate-400 leading-tight mt-0.5">{item.desc}</div>
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Filter Grade & Fan Speed */}
-            <div className="grid grid-cols-2 gap-3">
+            {/* Filter Grade & Fan Speed Selectors */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <div>
-                <label className="text-xs font-semibold text-slate-300 block mb-1.5">
-                  Filter Media Grade:
+                <label className="text-xs font-bold uppercase tracking-wider text-slate-300 block mb-1.5">
+                  2. Filter Media Grade:
                 </label>
                 <select
                   value={crConfig.filterGrade}
                   onChange={(e) =>
                     setCrConfig({ ...crConfig, filterGrade: e.target.value as CorsiRosenthalConfig['filterGrade'] })
                   }
-                  className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-white focus:border-emerald-500 focus:outline-none"
+                  className="w-full bg-slate-950 border border-slate-700/80 rounded-xl p-2.5 text-xs text-white focus:border-emerald-500 focus:outline-none"
                 >
-                  <option value="MERV_11">MERV 11 (65% PM2.5 capture)</option>
-                  <option value="MERV_13">MERV 13 (85% PM2.5 capture - Recommended)</option>
-                  <option value="MERV_14">MERV 14 (90% PM2.5 capture)</option>
-                  <option value="HEPA_H13">HEPA H13 (99.7% capture - High Drag)</option>
+                  <option value="MERV_11">MERV 11 (65% PM2.5 Capture)</option>
+                  <option value="MERV_13">MERV 13 (85% PM2.5 Capture - Recommended)</option>
+                  <option value="MERV_14">MERV 14 (90% PM2.5 Capture)</option>
+                  <option value="HEPA_H13">HEPA H13 (99.7% Capture - High Drag)</option>
                 </select>
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-slate-300 block mb-1.5">
-                  Fan Operating Speed:
+                <label className="text-xs font-bold uppercase tracking-wider text-slate-300 block mb-1.5">
+                  3. Fan Operating Speed:
                 </label>
                 <select
                   value={crConfig.fanSpeed}
                   onChange={(e) =>
                     setCrConfig({ ...crConfig, fanSpeed: e.target.value as CorsiRosenthalConfig['fanSpeed'] })
                   }
-                  className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-white focus:border-emerald-500 focus:outline-none"
+                  className="w-full bg-slate-950 border border-slate-700/80 rounded-xl p-2.5 text-xs text-white focus:border-emerald-500 focus:outline-none"
                 >
-                  <option value="LOW">Low Speed (~39 dBA quiet)</option>
-                  <option value="MEDIUM">Medium Speed (~46 dBA balanced)</option>
-                  <option value="HIGH">High Speed (~51 dBA max CADR)</option>
+                  <option value="LOW">Low Speed (~39 dBA Quiet Sleep)</option>
+                  <option value="MEDIUM">Medium Speed (~46 dBA Optimal CADR)</option>
+                  <option value="HIGH">High Speed (~51 dBA Maximum Clearance)</option>
                 </select>
               </div>
             </div>
 
             {/* Room Dimensions Inputs */}
             <div>
-              <label className="text-xs font-semibold text-slate-300 block mb-1.5">
-                Target Room Dimensions (Meters):
+              <label className="text-xs font-bold uppercase tracking-wider text-slate-300 block mb-1.5">
+                4. Target Room Dimensions (Meters):
               </label>
-              <div className="grid grid-cols-3 gap-2">
-                <div>
-                  <span className="text-[10px] text-slate-400">Length (m)</span>
+              <div className="grid grid-cols-3 gap-2.5">
+                <div className="p-2 rounded-xl bg-slate-950 border border-slate-800 text-center">
+                  <span className="text-[10px] text-slate-400 block">Length (m)</span>
                   <input
                     type="number"
                     min="2"
@@ -177,11 +183,11 @@ export const IndoorHacksLab: React.FC<IndoorHacksLabProps> = ({ familyProfile })
                         roomDimensionsM: { ...crConfig.roomDimensionsM, length: parseFloat(e.target.value) || 4 },
                       })
                     }
-                    className="w-full bg-slate-900 border border-slate-700 rounded-lg p-1.5 text-xs text-white text-center"
+                    className="w-full bg-transparent text-center font-bold font-mono text-emerald-400 text-sm focus:outline-none"
                   />
                 </div>
-                <div>
-                  <span className="text-[10px] text-slate-400">Width (m)</span>
+                <div className="p-2 rounded-xl bg-slate-950 border border-slate-800 text-center">
+                  <span className="text-[10px] text-slate-400 block">Width (m)</span>
                   <input
                     type="number"
                     min="2"
@@ -194,11 +200,11 @@ export const IndoorHacksLab: React.FC<IndoorHacksLabProps> = ({ familyProfile })
                         roomDimensionsM: { ...crConfig.roomDimensionsM, width: parseFloat(e.target.value) || 4 },
                       })
                     }
-                    className="w-full bg-slate-900 border border-slate-700 rounded-lg p-1.5 text-xs text-white text-center"
+                    className="w-full bg-transparent text-center font-bold font-mono text-cyan-400 text-sm focus:outline-none"
                   />
                 </div>
-                <div>
-                  <span className="text-[10px] text-slate-400">Ceiling (m)</span>
+                <div className="p-2 rounded-xl bg-slate-950 border border-slate-800 text-center">
+                  <span className="text-[10px] text-slate-400 block">Ceiling Height (m)</span>
                   <input
                     type="number"
                     min="2"
@@ -211,84 +217,122 @@ export const IndoorHacksLab: React.FC<IndoorHacksLabProps> = ({ familyProfile })
                         roomDimensionsM: { ...crConfig.roomDimensionsM, height: parseFloat(e.target.value) || 2.7 },
                       })
                     }
-                    className="w-full bg-slate-900 border border-slate-700 rounded-lg p-1.5 text-xs text-white text-center"
+                    className="w-full bg-transparent text-center font-bold font-mono text-amber-400 text-sm focus:outline-none"
                   />
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Real-time Computed Physics Outputs: Right 6 columns */}
-          <div className="lg:col-span-6 bg-slate-900/90 rounded-xl p-4 border border-slate-800 flex flex-col justify-between space-y-4">
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              <div className="p-3 rounded-lg bg-slate-950 border border-slate-800 text-center">
-                <span className="text-[10px] text-slate-400 uppercase font-semibold">Clean Air CADR</span>
-                <div className="text-lg font-bold font-mono text-emerald-400">{crOutput.cadrCfm}</div>
-                <span className="text-[9px] text-slate-400">CFM ({crOutput.cadrM3H} m³/h)</span>
-              </div>
+          {/* Dazzling Visual Schematic & Real-time Outputs: Right 6 columns */}
+          <div className="lg:col-span-6 flex flex-col justify-between space-y-5">
+            {/* Visual Schematic Diagram */}
+            <div className="p-5 rounded-2xl glass-panel relative flex flex-col items-center justify-center overflow-hidden border border-emerald-500/20">
+              {/* Animated Clean Air Jet Simulation */}
+              <div className="relative w-48 h-36 flex flex-col items-center justify-end">
+                {/* Floating clean air particles */}
+                <div className="absolute top-1 w-2 h-2 rounded-full bg-emerald-400 blur-[1px] animate-ping" />
+                <div className="absolute top-6 left-12 w-2.5 h-2.5 rounded-full bg-cyan-400 opacity-60 animate-bounce" />
+                <div className="absolute top-4 right-14 w-2 h-2 rounded-full bg-teal-300 opacity-80 animate-pulse" />
 
-              <div className="p-3 rounded-lg bg-slate-950 border border-slate-800 text-center">
-                <span className="text-[10px] text-slate-400 uppercase font-semibold">Room ACH Rate</span>
-                <div className="text-lg font-bold font-mono text-cyan-400">{crOutput.airChangesPerHour}</div>
-                <span className="text-[9px] text-slate-400">Air Changes / Hour</span>
-              </div>
+                {/* Upward clean airflow jet */}
+                <div className="w-20 h-16 bg-gradient-to-t from-emerald-500/40 via-cyan-400/20 to-transparent rounded-t-full filter blur-sm" />
 
-              <div className="p-3 rounded-lg bg-slate-950 border border-slate-800 text-center">
-                <span className="text-[10px] text-slate-400 uppercase font-semibold">90% Clean Time</span>
-                <div className="text-lg font-bold font-mono text-amber-400">
-                  {crOutput.timeToClean90PctMinutes}
+                {/* 20" Box Fan with Shroud */}
+                <div className="w-36 h-10 bg-slate-800 border-2 border-emerald-400 rounded-lg flex items-center justify-center shadow-lg relative z-10">
+                  <div className="w-8 h-8 rounded-full border border-dashed border-emerald-300 flex items-center justify-center">
+                    <Wind className="w-4 h-4 text-emerald-400 animate-spin" style={{ animationDuration: '3s' }} />
+                  </div>
+                  <span className="text-[9px] font-bold font-mono text-emerald-300 ml-2">
+                    {crOutput.cadrCfm} CFM JET
+                  </span>
                 </div>
-                <span className="text-[9px] text-slate-400">Minutes</span>
-              </div>
 
-              <div className="p-3 rounded-lg bg-slate-950 border border-slate-800 text-center">
-                <span className="text-[10px] text-slate-400 uppercase font-semibold">DIY Material Cost</span>
-                <div className="text-lg font-bold font-mono text-white">${crOutput.estimatedMaterialCostUsd}</div>
-                <span className="text-[9px] text-slate-400">₹{crOutput.estimatedMaterialCostInr}</span>
-              </div>
-
-              <div className="p-3 rounded-lg bg-slate-950 border border-slate-800 text-center">
-                <span className="text-[10px] text-slate-400 uppercase font-semibold">HEPA Equivalent</span>
-                <div className="text-lg font-bold font-mono text-emerald-300">
-                  {crOutput.commercialHepaEquivalentCount}x
+                {/* Filter Media Cube (4 sides) */}
+                <div className="w-32 h-14 bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-700 rounded-b-md flex items-center justify-around px-2 shadow-inner">
+                  <div className="h-10 w-5 bg-slate-800 border border-emerald-500/40 rounded flex items-center justify-center text-[7px] text-emerald-400 rotate-90">
+                    MERV13
+                  </div>
+                  <div className="h-10 w-12 bg-slate-900 border border-emerald-500/50 rounded flex items-center justify-center text-[8px] font-bold text-slate-300">
+                    {crConfig.filterCount}-FILTER CUBE
+                  </div>
+                  <div className="h-10 w-5 bg-slate-800 border border-emerald-500/40 rounded flex items-center justify-center text-[7px] text-emerald-400 rotate-90">
+                    MERV13
+                  </div>
                 </div>
-                <span className="text-[9px] text-slate-400">Commercial Units</span>
               </div>
 
-              <div className="p-3 rounded-lg bg-slate-950 border border-slate-800 text-center">
-                <span className="text-[10px] text-slate-400 uppercase font-semibold">Annual Savings</span>
-                <div className="text-lg font-bold font-mono text-teal-300">${crOutput.annualSavingsUsd}</div>
-                <span className="text-[9px] text-slate-400">vs Store HEPA</span>
+              <div className="mt-3 text-[11px] text-center text-slate-300 font-semibold">
+                ✨ <strong>Fluid Mechanics Principle:</strong> Pleating {crConfig.filterCount} MERV 13 filters expands total media surface to ~64 ft², reducing air drag by 75% and delivering whisper-quiet {crConfig.fanSpeed.toLowerCase()} mode ({crOutput.estimatedDecibels} dBA).
               </div>
             </div>
 
-            <div className="text-[11px] text-slate-300 p-2.5 rounded-lg bg-emerald-950/40 border border-emerald-500/30">
-              💡 <strong>Physics Insight:</strong> Using a 4-filter cube expands filter surface area to ~64 ft², reducing air resistance by 75% compared to strapping a single filter to the fan. This keeps the motor cool, lowers noise by ~8 dBA, and delivers 430 CFM of high-volume particulate clearance.
+            {/* Performance KPIs Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div className="p-3.5 rounded-2xl glass-panel text-center">
+                <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Clean Air CADR</span>
+                <div className="text-xl font-black font-mono text-emerald-400 my-0.5">{crOutput.cadrCfm}</div>
+                <span className="text-[9px] text-slate-400">CFM ({crOutput.cadrM3H} m³/h)</span>
+              </div>
+
+              <div className="p-3.5 rounded-2xl glass-panel text-center">
+                <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Room ACH Rate</span>
+                <div className="text-xl font-black font-mono text-cyan-400 my-0.5">{crOutput.airChangesPerHour}</div>
+                <span className="text-[9px] text-slate-400">Air Changes / Hour</span>
+              </div>
+
+              <div className="p-3.5 rounded-2xl glass-panel text-center">
+                <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">90% Clean Time</span>
+                <div className="text-xl font-black font-mono text-amber-400 my-0.5">
+                  {crOutput.timeToClean90PctMinutes}m
+                </div>
+                <span className="text-[9px] text-slate-400">Rapid Clearance</span>
+              </div>
+
+              <div className="p-3.5 rounded-2xl glass-panel text-center">
+                <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Material Cost</span>
+                <div className="text-xl font-black font-mono text-white my-0.5">${crOutput.estimatedMaterialCostUsd}</div>
+                <span className="text-[9px] text-slate-400">₹{crOutput.estimatedMaterialCostInr} Total</span>
+              </div>
+
+              <div className="p-3.5 rounded-2xl glass-panel text-center">
+                <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Store HEPA Eq.</span>
+                <div className="text-xl font-black font-mono text-emerald-300 my-0.5">
+                  {crOutput.commercialHepaEquivalentCount}x
+                </div>
+                <span className="text-[9px] text-slate-400">Units Matched</span>
+              </div>
+
+              <div className="p-3.5 rounded-2xl glass-panel text-center">
+                <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Annual Savings</span>
+                <div className="text-xl font-black font-mono text-teal-300 my-0.5">${crOutput.annualSavingsUsd}</div>
+                <span className="text-[9px] text-slate-400">vs Store HEPA</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Catalog of Tested Indoor Hacks */}
+      {/* Catalog of Tested Indoor Air Hacks */}
       <div>
         <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
           Explore Curated Indoor Air Purification Hacks:
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {INDOOR_HACKS.map((hack) => (
             <button
               key={hack.id}
               type="button"
               onClick={() => setSelectedHack(hack)}
-              className={`p-3 rounded-xl border text-left transition-all focus-visible:ring-2 focus-visible:ring-emerald-400 focus:outline-none ${
+              className={`p-3.5 rounded-2xl border text-left transition-all ${
                 selectedHack.id === hack.id
-                  ? 'bg-emerald-950/80 border-emerald-500 text-white shadow-lg shadow-emerald-950/30'
-                  : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200'
+                  ? 'glass-panel-glow text-white shadow-lg shadow-emerald-950/40 ring-1 ring-emerald-500/60'
+                  : 'glass-panel text-slate-400 hover:text-slate-200 hover:border-white/20'
               }`}
             >
               <div className="text-xs font-bold truncate">{hack.title}</div>
-              <div className="text-[10px] text-emerald-400 font-mono mt-1">
+              <div className="text-[10px] text-emerald-400 font-mono mt-1 font-bold">
                 {hack.particulateReductionEfficiencyPct}% Reduction
               </div>
               <div className="text-[10px] text-slate-400 mt-0.5">
@@ -298,54 +342,53 @@ export const IndoorHacksLab: React.FC<IndoorHacksLabProps> = ({ familyProfile })
           ))}
         </div>
 
-        {/* Selected Hack Deep Dive */}
-        <div className="mt-4 p-5 rounded-xl bg-slate-950 border border-slate-800 space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800">
+        {/* Selected Hack Blueprint & Steps */}
+        <div className="mt-5 p-6 rounded-2xl glass-panel space-y-5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/10">
             <div>
-              <h3 className="text-base font-bold text-white">{selectedHack.title}</h3>
-              <p className="text-xs text-slate-400">{selectedHack.tagline}</p>
+              <h3 className="text-lg font-bold text-white">{selectedHack.title}</h3>
+              <p className="text-xs text-slate-400 mt-0.5">{selectedHack.tagline}</p>
             </div>
             <div className="flex items-center space-x-2 text-xs font-mono">
-              <span className="px-2.5 py-1 rounded-full bg-slate-900 border border-slate-700 text-slate-300">
+              <span className="px-3 py-1 rounded-xl glass-panel text-slate-300 font-bold">
                 ⏱️ {selectedHack.estimatedBuildTimeMinutes} mins
               </span>
-              <span className="px-2.5 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 font-bold">
+              <span className="px-3 py-1 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 font-black">
                 🛡️ {selectedHack.particulateReductionEfficiencyPct}% PM2.5 Cut
               </span>
             </div>
           </div>
 
-          {/* Materials & Step by Step */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider mb-2">
-                Required Materials:
+              <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider mb-2.5">
+                Required Materials & Tools:
               </h4>
-              <ul className="space-y-1.5 text-xs text-slate-300">
+              <ul className="space-y-2 text-xs text-slate-300">
                 {selectedHack.materials.map((mat, i) => (
-                  <li key={i} className="flex items-start space-x-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-1.5 shrink-0" />
+                  <li key={i} className="flex items-start space-x-2.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 mt-1.5 shrink-0 shadow-sm shadow-emerald-400" />
                     <span>{mat}</span>
                   </li>
                 ))}
               </ul>
 
-              <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider mt-4 mb-2">
+              <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider mt-5 mb-2.5">
                 Scientific Mechanism:
               </h4>
-              <p className="text-xs text-slate-300 leading-relaxed bg-slate-900/60 p-3 rounded-lg border border-slate-800">
+              <p className="text-xs text-slate-300 leading-relaxed glass-panel p-3.5 rounded-xl border border-white/5">
                 {selectedHack.scientificMechanism}
               </p>
             </div>
 
             <div>
-              <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider mb-2">
+              <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider mb-2.5">
                 Step-by-Step Implementation:
               </h4>
-              <ol className="space-y-2 text-xs text-slate-300">
+              <ol className="space-y-2.5 text-xs text-slate-300">
                 {selectedHack.steps.map((step, i) => (
-                  <li key={i} className="flex items-start space-x-2.5">
-                    <span className="w-5 h-5 rounded-full bg-slate-800 border border-slate-700 text-emerald-400 font-mono text-[10px] font-bold flex items-center justify-center shrink-0">
+                  <li key={i} className="flex items-start space-x-3">
+                    <span className="w-5 h-5 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-mono text-[10px] font-bold flex items-center justify-center shrink-0">
                       {i + 1}
                     </span>
                     <span className="leading-relaxed">{step}</span>
@@ -353,11 +396,11 @@ export const IndoorHacksLab: React.FC<IndoorHacksLabProps> = ({ familyProfile })
                 ))}
               </ol>
 
-              {/* Dos and Donts */}
-              <div className="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-slate-800">
+              {/* Dos and Don'ts */}
+              <div className="grid grid-cols-2 gap-3 mt-5 pt-4 border-t border-white/10">
                 <div className="text-[11px] text-emerald-300">
                   <span className="font-bold block mb-1">✓ Critical Do's:</span>
-                  <ul className="list-disc list-inside space-y-0.5 text-slate-400 text-[10px]">
+                  <ul className="list-disc list-inside space-y-1 text-slate-400 text-[10px]">
                     {selectedHack.dosAndDonts.do.map((item, idx) => (
                       <li key={idx}>{item}</li>
                     ))}
@@ -365,7 +408,7 @@ export const IndoorHacksLab: React.FC<IndoorHacksLabProps> = ({ familyProfile })
                 </div>
                 <div className="text-[11px] text-rose-300">
                   <span className="font-bold block mb-1">✗ Critical Don'ts:</span>
-                  <ul className="list-disc list-inside space-y-0.5 text-slate-400 text-[10px]">
+                  <ul className="list-disc list-inside space-y-1 text-slate-400 text-[10px]">
                     {selectedHack.dosAndDonts.dont.map((item, idx) => (
                       <li key={idx}>{item}</li>
                     ))}

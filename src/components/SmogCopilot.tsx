@@ -108,7 +108,6 @@ Ask me for:
       return;
     }
 
-    // Strip markdown formatting for speech
     const cleanText = text
       .replace(/[#*_`]/g, '')
       .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
@@ -129,9 +128,10 @@ Ask me for:
       window.speechSynthesis.cancel();
     }
     setIsSpeaking(false);
+    messageCounter.current += 1;
     setMessages([
       {
-        id: `init-${Date.now()}`,
+        id: `init-${messageCounter.current}`,
         role: 'assistant',
         content: `Conversation reset. I am ready to advise ${familyProfile.familyName} on navigating winter smog in ${city.name}. What can I analyze for you?`,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -141,19 +141,22 @@ Ask me for:
 
   return (
     <section
-      className="w-full rounded-2xl bg-slate-900/80 border border-slate-800 p-5 sm:p-6 shadow-xl flex flex-col h-[650px] relative"
+      className="w-full rounded-3xl glass-panel p-6 sm:p-7 shadow-2xl flex flex-col h-[680px] relative overflow-hidden"
       aria-labelledby="copilot-heading"
     >
+      {/* Background ambient lighting */}
+      <div className="absolute top-0 right-1/4 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+
       {/* Header */}
-      <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+      <div className="flex items-center justify-between pb-4 border-b border-white/10 relative z-10">
         <div className="flex items-center space-x-3">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-slate-950 font-bold shadow-md">
-            <Bot className="w-5 h-5 text-slate-950" aria-hidden="true" />
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-500 via-teal-400 to-cyan-300 flex items-center justify-center text-slate-950 font-bold shadow-lg shadow-emerald-500/30">
+            <Bot className="w-6 h-6 text-slate-950" aria-hidden="true" />
           </div>
           <div>
-            <h2 id="copilot-heading" className="text-base font-bold text-white flex items-center space-x-2">
+            <h2 id="copilot-heading" className="text-base font-extrabold text-white flex items-center space-x-2">
               <span>AeroGuard Smog Copilot</span>
-              <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+              <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/30">
                 Gemini 2.5 Flash
               </span>
             </h2>
@@ -166,7 +169,7 @@ Ask me for:
         <button
           type="button"
           onClick={handleResetChat}
-          className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors focus-visible:ring-2 focus-visible:ring-emerald-400 focus:outline-none"
+          className="p-2 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-slate-800/80 transition-colors focus-visible:ring-2 focus-visible:ring-emerald-400 focus:outline-none"
           title="Reset conversation"
           aria-label="Reset conversation"
         >
@@ -175,16 +178,16 @@ Ask me for:
       </div>
 
       {/* Suggested Prompt Chips */}
-      <div className="py-2.5 overflow-x-auto no-scrollbar flex items-center gap-2 border-b border-slate-800/60">
-        <span className="text-[11px] text-slate-400 font-semibold shrink-0 flex items-center gap-1">
-          <Sparkles className="w-3 h-3 text-emerald-400" aria-hidden="true" /> Prompt Ideas:
+      <div className="py-3 overflow-x-auto no-scrollbar flex items-center gap-2 border-b border-white/5 relative z-10">
+        <span className="text-[11px] text-slate-400 font-bold shrink-0 flex items-center gap-1.5">
+          <Sparkles className="w-3.5 h-3.5 text-emerald-400" aria-hidden="true" /> Prompt Ideas:
         </span>
         {SUGGESTED_PROMPTS.map((prompt, idx) => (
           <button
             key={idx}
             type="button"
             onClick={() => handleSendMessage(prompt)}
-            className="text-[11px] whitespace-nowrap px-2.5 py-1 rounded-full bg-slate-800/90 hover:bg-emerald-950/60 hover:text-emerald-300 border border-slate-700/80 hover:border-emerald-500/40 text-slate-300 transition-all focus-visible:ring-2 focus-visible:ring-emerald-400 focus:outline-none"
+            className="text-[11px] font-medium whitespace-nowrap px-3 py-1.5 rounded-xl glass-panel hover:bg-emerald-950/60 hover:text-emerald-300 hover:border-emerald-500/50 text-slate-300 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-emerald-400 focus:outline-none shadow-sm"
           >
             {prompt}
           </button>
@@ -193,7 +196,7 @@ Ask me for:
 
       {/* Chat Messages Body */}
       <div
-        className="flex-1 overflow-y-auto py-4 space-y-4 pr-1 focus:outline-none"
+        className="flex-1 overflow-y-auto py-5 space-y-4 pr-1 focus:outline-none relative z-10"
         tabIndex={0}
         aria-label="Conversation messages"
       >
@@ -203,16 +206,16 @@ Ask me for:
             className={`flex items-start gap-3 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             {msg.role === 'assistant' && (
-              <div className="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shrink-0 mt-0.5">
-                <Bot className="w-4 h-4" aria-hidden="true" />
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-slate-950 font-bold shrink-0 mt-0.5 shadow-md shadow-emerald-500/20">
+                <Bot className="w-4 h-4 text-slate-950" aria-hidden="true" />
               </div>
             )}
 
             <div
               className={`max-w-[85%] rounded-2xl p-4 text-xs leading-relaxed ${
                 msg.role === 'user'
-                  ? 'bg-emerald-600 text-white rounded-tr-none'
-                  : 'bg-slate-800/90 border border-slate-700/80 text-slate-200 rounded-tl-none'
+                  ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-tr-none shadow-lg shadow-emerald-950/40 font-medium'
+                  : 'glass-panel text-slate-200 rounded-tl-none border border-white/10 shadow-xl'
               }`}
             >
               {/* Message Content Rendered */}
@@ -222,11 +225,11 @@ Ask me for:
 
               {/* Structured Card Rendering */}
               {msg.structuredCard && (
-                <div className="mt-3 pt-3 border-t border-slate-700/70 bg-slate-900/60 rounded-xl p-3 border border-slate-800">
-                  <div className="flex items-center space-x-2 text-emerald-400 font-bold mb-1.5">
-                    {msg.structuredCard.type === 'ROUTINE_PATCH' && <Calendar className="w-3.5 h-3.5" />}
-                    {msg.structuredCard.type === 'DIY_HACK' && <Wrench className="w-3.5 h-3.5" />}
-                    {msg.structuredCard.type === 'IMPACT_METRIC' && <Flame className="w-3.5 h-3.5" />}
+                <div className="mt-3.5 pt-3 border-t border-white/10 bg-slate-950/70 rounded-xl p-3.5 border border-emerald-500/20">
+                  <div className="flex items-center space-x-2 text-emerald-400 font-extrabold mb-1.5">
+                    {msg.structuredCard.type === 'ROUTINE_PATCH' && <Calendar className="w-4 h-4 text-amber-400" />}
+                    {msg.structuredCard.type === 'DIY_HACK' && <Wrench className="w-4 h-4 text-cyan-400" />}
+                    {msg.structuredCard.type === 'IMPACT_METRIC' && <Flame className="w-4 h-4 text-rose-400" />}
                     <span>{msg.structuredCard.headline}</span>
                   </div>
                   <ul className="space-y-1 text-[11px] text-slate-300 list-disc list-inside">
@@ -235,7 +238,7 @@ Ask me for:
                     ))}
                   </ul>
                   {msg.structuredCard.quantifiedBenefit && (
-                    <div className="mt-2 text-[10px] font-mono px-2 py-1 rounded bg-emerald-950/60 text-emerald-300 border border-emerald-500/30 font-semibold">
+                    <div className="mt-2.5 text-[10px] font-mono px-2.5 py-1 rounded-lg bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 font-bold">
                       ⚡ Direct Impact: {msg.structuredCard.quantifiedBenefit}
                     </div>
                   )}
@@ -243,20 +246,20 @@ Ask me for:
               )}
 
               {/* Timestamp & Speech Action */}
-              <div className="flex items-center justify-between mt-2 pt-1 text-[10px] text-slate-400">
+              <div className="flex items-center justify-between mt-2.5 pt-1.5 text-[10px] text-slate-400 border-t border-white/5">
                 <span>{msg.timestamp}</span>
                 {msg.role === 'assistant' && (
                   <button
                     type="button"
                     onClick={() => handleSpeak(msg.content)}
-                    className="p-1 rounded hover:text-slate-200 transition-colors focus-visible:ring-1 focus-visible:ring-emerald-400 focus:outline-none"
+                    className="p-1 rounded-md hover:text-white hover:bg-slate-800 transition-colors focus-visible:ring-1 focus-visible:ring-emerald-400 focus:outline-none"
                     title={isSpeaking ? 'Mute Speech' : 'Listen via Voice Synthesizer'}
                     aria-label={isSpeaking ? 'Mute Speech' : 'Listen to message'}
                   >
                     {isSpeaking ? (
-                      <VolumeX className="w-3.5 h-3.5 text-rose-400" aria-hidden="true" />
+                      <VolumeX className="w-4 h-4 text-rose-400" aria-hidden="true" />
                     ) : (
-                      <Volume2 className="w-3.5 h-3.5 text-cyan-400" aria-hidden="true" />
+                      <Volume2 className="w-4 h-4 text-cyan-400" aria-hidden="true" />
                     )}
                   </button>
                 )}
@@ -264,7 +267,7 @@ Ask me for:
             </div>
 
             {msg.role === 'user' && (
-              <div className="w-7 h-7 rounded-lg bg-slate-700 border border-slate-600 flex items-center justify-center text-slate-200 shrink-0 mt-0.5">
+              <div className="w-8 h-8 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-200 shrink-0 mt-0.5">
                 <User className="w-4 h-4" aria-hidden="true" />
               </div>
             )}
@@ -273,12 +276,12 @@ Ask me for:
 
         {isLoading && (
           <div className="flex items-start gap-3">
-            <div className="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shrink-0">
+            <div className="w-8 h-8 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shrink-0 shadow-md">
               <Bot className="w-4 h-4 animate-spin" aria-hidden="true" />
             </div>
-            <div className="bg-slate-800/80 border border-slate-700/80 rounded-2xl rounded-tl-none p-3.5 text-xs text-slate-300 flex items-center space-x-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-              <span>Analyzing boundary layer inversion physics and household parameters...</span>
+            <div className="glass-panel rounded-2xl rounded-tl-none p-4 text-xs text-slate-200 flex items-center space-x-2.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
+              <span>Synthesizing boundary layer inversion physics and household health parameters...</span>
             </div>
           </div>
         )}
@@ -291,7 +294,7 @@ Ask me for:
           e.preventDefault();
           handleSendMessage();
         }}
-        className="pt-3 border-t border-slate-800 flex items-center gap-2"
+        className="pt-4 border-t border-white/10 flex items-center gap-2.5 relative z-10"
       >
         <label htmlFor="copilot-input" className="sr-only">
           Ask AeroGuard about winter smog routines, indoor hacks, and impact
@@ -302,13 +305,13 @@ Ask me for:
           value={inputQuery}
           onChange={(e) => setInputQuery(e.target.value)}
           placeholder={`Ask about routines, Corsi-Rosenthal hacks, or ventilation for ${city.name}...`}
-          className="flex-1 bg-slate-950 border border-slate-700/90 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:outline-none transition-colors"
+          className="flex-1 bg-slate-950/90 border border-slate-700/80 rounded-2xl px-5 py-3 text-xs text-white placeholder-slate-500 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/30 focus:outline-none transition-all shadow-inner"
           disabled={isLoading}
         />
         <button
           type="submit"
           disabled={isLoading || !inputQuery.trim()}
-          className="p-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed shadow-md shadow-emerald-950/40 focus-visible:ring-2 focus-visible:ring-emerald-400 focus:outline-none"
+          className="p-3 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-black transition-all disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-emerald-500/30 focus-visible:ring-2 focus-visible:ring-emerald-400 focus:outline-none"
           aria-label="Send message to AeroGuard"
         >
           <Send className="w-4 h-4" aria-hidden="true" />

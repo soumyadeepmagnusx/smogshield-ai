@@ -3,6 +3,9 @@ import {
   Calendar,
   Clock,
   Layers,
+  Sun,
+  Moon,
+  Sparkles,
 } from 'lucide-react';
 import { CityPreset, AirPollutantMetrics, AtmosphericMetrics, FamilyProfile, RoutineActivity } from '../types';
 import { generateDiurnalHourlyForecast } from '../utils/aqiPhysics';
@@ -37,10 +40,10 @@ export const DiurnalRoutineOptimizer: React.FC<DiurnalRoutineOptimizerProps> = (
       baselineHour: 7,
       optimizedHour: 13,
       isShifted: true,
-      baselineExposureUg: Math.round(pollutants.pm25 * 1.85 * 2.5), // High breathing rate (2.5 m3/h)
+      baselineExposureUg: Math.round(pollutants.pm25 * 1.85 * 2.5), // High minute ventilation (2.5 m3/h)
       optimizedExposureUg: Math.round(pollutants.pm25 * 0.22 * 0.85), // Indoor filtered room (0.85 m3/h)
       rationale: 'During 07:00 AM radiative ground inversion, minute ventilation during jogging deposits 5x more fine soot deep into alveolar sacs. Shifting to an indoor filtered sanctuary room drops inhaled dose by 88%.',
-      actionableTip: 'Perform indoor HIIT, treadmill, or bodyweight circuit inside the sealed bedroom sanctuary with purifier on medium.',
+      actionableTip: 'Perform indoor HIIT, treadmill, or yoga inside the sealed bedroom sanctuary with purifier on medium.',
       emissionReductionTag: 'Zero direct vehicle trips avoided',
     },
     {
@@ -97,104 +100,122 @@ export const DiurnalRoutineOptimizer: React.FC<DiurnalRoutineOptimizerProps> = (
 
   return (
     <section
-      className="w-full rounded-2xl bg-slate-900/80 border border-slate-800 p-5 sm:p-6 shadow-xl space-y-6"
+      className="w-full rounded-3xl glass-panel p-6 sm:p-8 space-y-8"
       aria-labelledby="routine-heading"
     >
       {/* Header & Impact Summary */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-white/10">
         <div>
-          <div className="flex items-center space-x-2">
-            <Calendar className="w-5 h-5 text-emerald-400" aria-hidden="true" />
-            <h2 id="routine-heading" className="text-lg font-bold text-white tracking-tight">
+          <div className="flex items-center space-x-2.5">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-400 flex items-center justify-center text-slate-950 font-bold shadow-lg shadow-amber-950/50">
+              <Calendar className="w-5 h-5 text-slate-950" aria-hidden="true" />
+            </div>
+            <h2 id="routine-heading" className="text-xl font-extrabold text-white tracking-tight">
               24-Hour Diurnal Smog Routine Optimizer
             </h2>
           </div>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-400 mt-1">
             Synchronizes family activities with solar convective mixing windows in {city.name} to minimize inhaled particulate dose.
           </p>
         </div>
 
         {/* Quantified Impact Badge Bar */}
-        <div className="flex flex-wrap items-center gap-3 bg-slate-950/80 border border-slate-800 rounded-xl p-2.5 sm:px-4">
-          <div className="text-center pr-3 border-r border-slate-800">
-            <span className="text-[10px] text-slate-400 uppercase font-semibold">Avoided Inhaled Dose</span>
-            <div className="text-sm font-bold font-mono text-emerald-400">
+        <div className="flex flex-wrap items-center gap-4 glass-panel px-5 py-3 rounded-2xl border border-emerald-500/30 shadow-xl">
+          <div className="text-center pr-4 border-r border-white/10">
+            <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Inhaled Dose Avoided</span>
+            <div className="text-base font-black font-mono text-emerald-400">
               {impact.dailyAvoidedInhaledUg} <span className="text-[10px]">µg</span>
             </div>
           </div>
-          <div className="text-center pr-3 border-r border-slate-800">
-            <span className="text-[10px] text-slate-400 uppercase font-semibold">Berkeley Cigarettes Spared</span>
-            <div className="text-sm font-bold font-mono text-amber-400">
+          <div className="text-center pr-4 border-r border-white/10">
+            <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Cigarettes Spared</span>
+            <div className="text-base font-black font-mono text-amber-300">
               {impact.cigarettesAvoidedPerPerson} <span className="text-[10px]">/person</span>
             </div>
           </div>
           <div className="text-center">
-            <span className="text-[10px] text-slate-400 uppercase font-semibold">Acute Risk Reduction</span>
-            <div className="text-sm font-bold font-mono text-cyan-400">
+            <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Acute Risk Reduction</span>
+            <div className="text-base font-black font-mono text-cyan-400">
               -{impact.respiratoryRiskReductionPct}%
             </div>
           </div>
         </div>
       </div>
 
-      {/* Visual 24-Hour Diurnal Chart */}
-      <div>
-        <div className="flex items-center justify-between text-xs font-semibold text-slate-300 mb-2">
-          <span className="flex items-center gap-1.5">
-            <Layers className="w-3.5 h-3.5 text-cyan-400" aria-hidden="true" />
-            Diurnal Inversion Dynamics (Hourly US AQI vs Boundary Layer Height)
+      {/* Dazzling 24-Hour Diurnal Chart */}
+      <div className="space-y-3">
+        <div className="flex items-center justify-between text-xs font-bold text-slate-200">
+          <span className="flex items-center gap-2">
+            <Layers className="w-4 h-4 text-cyan-400" aria-hidden="true" />
+            Diurnal Inversion Dynamics (Hourly US AQI vs Planetary Boundary Layer Height)
           </span>
-          <div className="flex items-center space-x-3 text-[11px] text-slate-400">
-            <span className="flex items-center gap-1">
-              <span className="w-2.5 h-2.5 rounded-sm bg-rose-950 border border-rose-500/50" /> Nocturnal Trap
+          <div className="flex items-center space-x-4 text-[11px] text-slate-300">
+            <span className="flex items-center gap-1.5">
+              <span className="w-3 h-3 rounded-md bg-gradient-to-t from-purple-800 to-rose-600 shadow-sm shadow-rose-950" /> Nocturnal Inversion Trap
             </span>
-            <span className="flex items-center gap-1">
-              <span className="w-2.5 h-2.5 rounded-sm bg-emerald-950 border border-emerald-500/50" /> Solar Mixing Window
+            <span className="flex items-center gap-1.5">
+              <span className="w-3 h-3 rounded-md bg-gradient-to-t from-emerald-600 to-teal-400 shadow-sm shadow-emerald-950" /> Solar Mixing Window
             </span>
           </div>
         </div>
 
+        {/* Day / Night Celestial Horizon Strip */}
+        <div className="grid grid-cols-4 text-center text-[11px] font-mono font-bold text-slate-400 py-1.5 px-3 rounded-xl bg-slate-950/70 border border-white/5">
+          <span className="flex items-center justify-center gap-1 text-purple-300">
+            <Moon className="w-3.5 h-3.5" /> 00:00 - 06:00 (Nocturnal Lid)
+          </span>
+          <span className="flex items-center justify-center gap-1 text-rose-300">
+            <Clock className="w-3.5 h-3.5" /> 06:00 - 11:00 (Morning Trap & Rush)
+          </span>
+          <span className="flex items-center justify-center gap-1 text-emerald-300 font-extrabold">
+            <Sun className="w-3.5 h-3.5 text-amber-400 animate-spin" style={{ animationDuration: '10s' }} /> 11:00 - 16:00 (Solar Convective Window)
+          </span>
+          <span className="flex items-center justify-center gap-1 text-indigo-300">
+            <Moon className="w-3.5 h-3.5" /> 16:00 - 24:00 (Dusk Cooling Lid)
+          </span>
+        </div>
+
         {/* Bar Chart Visualization */}
         <div
-          className="grid grid-cols-12 sm:grid-cols-24 gap-1 p-3 rounded-xl bg-slate-950 border border-slate-800 overflow-x-auto"
+          className="grid grid-cols-12 sm:grid-cols-24 gap-1.5 p-4 rounded-2xl glass-panel relative overflow-x-auto"
           role="region"
           aria-label="24-Hour Diurnal Smog Forecast Chart"
         >
           {hourlyForecast.map((hour) => {
             const isWindow = hour.isOptimalVentilationWindow;
             const isSevere = hour.inversionState === 'SEVERE_TRAP';
-            const heightPct = Math.min(100, Math.max(15, (hour.usAqi / 450) * 100));
+            const heightPct = Math.min(100, Math.max(18, (hour.usAqi / 450) * 100));
 
             return (
               <div
                 key={hour.hour}
-                className="flex flex-col items-center justify-end h-32 group relative"
+                className="flex flex-col items-center justify-end h-36 group relative cursor-pointer"
                 title={`${hour.timeLabel}: AQI ${hour.usAqi} (PBL: ${hour.boundaryLayerHeightM}m) - ${hour.inversionState}`}
               >
-                {/* Bar */}
+                {/* Glowing Bar */}
                 <div
                   style={{ height: `${heightPct}%` }}
-                  className={`w-full rounded-t transition-all group-hover:opacity-100 ${
+                  className={`w-full rounded-t-md transition-all duration-300 group-hover:scale-105 ${
                     isWindow
-                      ? 'bg-gradient-to-t from-emerald-600 to-teal-400 shadow-md shadow-emerald-950/60'
+                      ? 'bg-gradient-to-t from-emerald-600 via-teal-500 to-cyan-400 shadow-lg shadow-emerald-500/30 ring-1 ring-emerald-300'
                       : isSevere
-                      ? 'bg-gradient-to-t from-purple-800 to-rose-600 opacity-80'
-                      : 'bg-gradient-to-t from-amber-800 to-yellow-600 opacity-70'
+                      ? 'bg-gradient-to-t from-purple-900 via-rose-700 to-rose-500 opacity-90 shadow-sm shadow-rose-950'
+                      : 'bg-gradient-to-t from-amber-900 via-amber-600 to-yellow-500 opacity-80'
                   }`}
                 />
 
                 {/* Hour Label */}
-                <span className="text-[9px] font-mono text-slate-400 mt-1">
+                <span className="text-[10px] font-mono text-slate-400 mt-1.5 font-semibold">
                   {hour.hour % 3 === 0 ? hour.timeLabel.slice(0, 2) : ''}
                 </span>
 
-                {/* Tooltip on hover */}
-                <div className="absolute bottom-full mb-2 hidden group-hover:flex flex-col items-center z-30 pointer-events-none w-32 p-2 rounded-lg bg-slate-900 border border-slate-700 shadow-xl text-[10px] text-white">
-                  <span className="font-bold">{hour.timeLabel}</span>
-                  <span className="text-amber-300 font-mono">AQI: {hour.usAqi}</span>
+                {/* Hover Popover Card */}
+                <div className="absolute bottom-full mb-3 hidden group-hover:flex flex-col items-center z-30 pointer-events-none w-36 p-2.5 rounded-xl bg-slate-900 border border-slate-700 shadow-2xl text-[11px] text-white">
+                  <span className="font-bold text-slate-100">{hour.timeLabel}</span>
+                  <span className="text-amber-300 font-mono font-bold">US AQI: {hour.usAqi}</span>
                   <span className="text-cyan-300 font-mono">PBL: {hour.boundaryLayerHeightM}m</span>
-                  <span className="text-slate-400 text-[9px] text-center mt-0.5">
-                    {isWindow ? '✨ Optimal Aeration' : isSevere ? '⚠️ Inversion Trap' : 'Normal'}
+                  <span className="text-slate-400 text-[10px] text-center mt-1">
+                    {isWindow ? '✨ Optimal Aeration' : isSevere ? '⚠️ Severe Inversion' : 'Moderate'}
                   </span>
                 </div>
               </div>
@@ -204,47 +225,49 @@ export const DiurnalRoutineOptimizer: React.FC<DiurnalRoutineOptimizerProps> = (
       </div>
 
       {/* Routine Activities Cards */}
-      <div className="space-y-3">
+      <div className="space-y-4">
         <div className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center justify-between">
-          <span>Personalized Routine Adjustments for {familyProfile.familyName}</span>
-          <span className="text-emerald-400 font-normal">Click toggle to simulate impact</span>
+          <span>Personalized Routine Adjustments for {familyProfile.familyName}:</span>
+          <span className="text-emerald-400 font-bold flex items-center gap-1">
+            <Sparkles className="w-3.5 h-3.5" /> Click toggle to simulate before vs after
+          </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {activities.map((act) => (
             <div
               key={act.id}
-              className={`p-4 rounded-xl border transition-all ${
+              className={`p-5 rounded-2xl border transition-all duration-200 glass-card-interactive ${
                 act.isShifted
-                  ? 'bg-slate-950/90 border-emerald-500/40 shadow-lg shadow-emerald-950/20'
-                  : 'bg-slate-950/40 border-slate-800 opacity-70'
+                  ? 'glass-panel-glow border-emerald-500/50 shadow-xl shadow-emerald-950/20'
+                  : 'glass-panel opacity-60 hover:opacity-100'
               }`}
             >
               <div className="flex items-start justify-between gap-3">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-3">
                   <div
-                    className={`w-7 h-7 rounded-lg flex items-center justify-center ${
+                    className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold ${
                       act.isShifted
-                        ? 'bg-emerald-500/20 text-emerald-400'
+                        ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 shadow-md'
                         : 'bg-slate-800 text-slate-400'
                     }`}
                   >
-                    <Clock className="w-4 h-4" aria-hidden="true" />
+                    <Clock className="w-5 h-5" aria-hidden="true" />
                   </div>
                   <div>
-                    <h3 className="text-xs font-bold text-white">{act.title}</h3>
-                    <span className="text-[10px] font-mono text-slate-400">{act.timeRange}</span>
+                    <h3 className="text-sm font-bold text-white">{act.title}</h3>
+                    <span className="text-[11px] font-mono text-cyan-400 font-semibold">{act.timeRange}</span>
                   </div>
                 </div>
 
-                {/* Shift Toggle */}
+                {/* Shift Toggle Button */}
                 <button
                   type="button"
                   onClick={() => toggleActivityShift(act.id)}
-                  className={`text-[10px] font-bold px-2.5 py-1 rounded-full border transition-all focus-visible:ring-2 focus-visible:ring-emerald-400 focus:outline-none ${
+                  className={`text-[11px] font-extrabold px-3 py-1.5 rounded-xl border transition-all ${
                     act.isShifted
-                      ? 'bg-emerald-950/80 border-emerald-500/60 text-emerald-300'
-                      : 'bg-slate-800 border-slate-700 text-slate-400'
+                      ? 'bg-emerald-500 text-black border-emerald-400 shadow-md shadow-emerald-500/30'
+                      : 'bg-slate-900 border-slate-700 text-slate-400 hover:text-white'
                   }`}
                   aria-pressed={act.isShifted}
                 >
@@ -253,14 +276,14 @@ export const DiurnalRoutineOptimizer: React.FC<DiurnalRoutineOptimizerProps> = (
               </div>
 
               {/* Rationale & Actionable Tip */}
-              <p className="text-[11px] text-slate-300 mt-2.5 leading-relaxed">
+              <p className="text-xs text-slate-300 mt-3 leading-relaxed">
                 {act.rationale}
               </p>
 
-              <div className="mt-3 pt-2.5 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between text-[10px] text-slate-400 gap-1.5">
-                <span className="text-emerald-400 font-semibold">💡 Action: {act.actionableTip}</span>
+              <div className="mt-4 pt-3 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between text-xs text-slate-400 gap-2">
+                <span className="text-emerald-300 font-bold">💡 Action: {act.actionableTip}</span>
                 {act.emissionReductionTag && (
-                  <span className="font-mono text-cyan-400 shrink-0">
+                  <span className="font-mono text-cyan-300 shrink-0 font-bold text-[11px]">
                     {act.emissionReductionTag}
                   </span>
                 )}
