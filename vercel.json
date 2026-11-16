@@ -1,0 +1,10 @@
+{
+  "buildCommand": "tsc -b && vite build",
+  "outputDirectory": "dist",
+  "cleanUrls": false,
+  "rewrites": [
+    { "source": "/presentation.html", "destination": "/presentation.html" },
+    { "source": "/dossier.html", "destination": "/dossier.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
