@@ -9,7 +9,7 @@
 
 ### 1. Public GitHub Repository Link
 ```
-https://github.com/your-username/smogshield-ai
+https://github.com/soumyadeepmagnusx/smogshield-ai
 ```
 *(Ensure repository is set to **Public**. Total repo size is **< 3.5 MB**, comfortably below the 10 MB platform limit!)*
 

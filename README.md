@@ -120,7 +120,7 @@ Presenting at hackathons with unreliable venue Wi-Fi is notorious for dropped ex
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-username/smogshield-ai.git
+git clone https://github.com/soumyadeepmagnusx/smogshield-ai.git
 cd smogshield-ai
 
 # 2. Install dependencies
