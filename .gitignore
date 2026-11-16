@@ -28,8 +28,12 @@ dist-ssr
 .env.production
 .env.local
 
-# Video binaries (Keep repo < 10 MB!)
+# Media & Audio binaries (Keep repo < 10 MB!)
 *.mp4
 *.mov
 *.avi
 *.mkv
+*.m4a
+*.wav
+*.mp3
+scripts/video_frames/
