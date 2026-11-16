@@ -13,6 +13,7 @@ import { CITY_PRESETS } from './constants/cities';
 import { SUSTAINABLE_ALTERNATIVES } from './constants/alternatives';
 import { fetchLiveAirQualityData, LiveTelemetryResponse } from './services/openMeteoService';
 import { calculateComprehensiveImpact } from './utils/impactCalculator';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { Navbar } from './components/Navbar';
 import { LiveAqiBanner } from './components/LiveAqiBanner';
 import { SmogCopilot } from './components/SmogCopilot';
@@ -126,6 +127,14 @@ export const App: React.FC = () => {
         highContrast ? 'bg-black text-white contrast-125' : 'bg-mesh-dark text-slate-100'
       }`}
     >
+      {/* WCAG 2.1 AAA Accessible Skip-to-Content Link */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-cyan-400 focus:text-slate-950 focus:font-bold focus:rounded-xl focus:shadow-2xl focus:outline-none focus:ring-2 focus:ring-white"
+      >
+        Skip to main content
+      </a>
+
       {/* Primary Top Navigation */}
       <Navbar
         selectedCity={selectedCity}
@@ -198,120 +207,122 @@ export const App: React.FC = () => {
           })}
         </nav>
 
-        {/* Active Tab Content Display */}
+        {/* Active Tab Content Display with Resilience Boundaries */}
         <div className="space-y-6">
-          {activeTab === 'copilot' && (
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-              <div className="lg:col-span-8">
-                <SmogCopilot
-                  city={selectedCity}
-                  pollutants={pollutants}
-                  atmosphere={atmosphere}
-                  familyProfile={familyProfile}
-                />
+          <ErrorBoundary fallbackTitle="Module Error">
+            {activeTab === 'copilot' && (
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div className="lg:col-span-8">
+                  <SmogCopilot
+                    city={selectedCity}
+                    pollutants={pollutants}
+                    atmosphere={atmosphere}
+                    familyProfile={familyProfile}
+                  />
+                </div>
+
+                {/* Side Quick Action Cards */}
+                <div className="lg:col-span-4 space-y-4">
+                  {/* Corsi-Rosenthal Quick Hack Card */}
+                  <div className="p-5 rounded-2xl glass-panel space-y-2.5 glass-card-interactive border border-emerald-500/20">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="font-bold text-emerald-400 flex items-center gap-1.5">
+                        <Wrench className="w-4 h-4" /> Recommended Hack
+                      </span>
+                      <span className="font-mono text-cyan-300 font-bold text-[11px]">$58 / ₹4,800</span>
+                    </div>
+                    <h3 className="text-sm font-bold text-white">The Corsi-Rosenthal Box</h3>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      Build a 4-filter MERV 13 box fan cube. Delivers <strong>430 CFM of Clean Air Delivery Rate (CADR)</strong>—outperforming $500 commercial HEPA units.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab('indoor_hacks')}
+                      className="text-xs font-bold text-emerald-400 hover:text-emerald-300 flex items-center space-x-1 pt-1"
+                    >
+                      <span>Launch CADR & ACH Simulator</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+
+                  {/* Diurnal Solar Window Card */}
+                  <div className="p-5 rounded-2xl glass-panel space-y-2.5 glass-card-interactive border border-amber-500/20">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="font-bold text-amber-400 flex items-center gap-1.5">
+                        <Calendar className="w-4 h-4" /> Diurnal Optimization
+                      </span>
+                      <span className="font-mono text-emerald-400 font-bold text-[11px]">12:30 - 15:00</span>
+                    </div>
+                    <h3 className="text-sm font-bold text-white">Solar Convective Aeration</h3>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      Solar insolation lifts the boundary layer inversion cap up to 900m at midday. Open opposing windows for 20 minutes to flush indoor CO2 without trapping nocturnal smog.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab('diurnal')}
+                      className="text-xs font-bold text-amber-400 hover:text-amber-300 flex items-center space-x-1 pt-1"
+                    >
+                      <span>Inspect 24h Routine Timeline</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+
+                  {/* Direct Impact Preview Card */}
+                  <div className="p-5 rounded-2xl glass-panel space-y-2.5 glass-card-interactive border border-rose-500/20">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="font-bold text-cyan-400 flex items-center gap-1.5">
+                        <Flame className="w-4 h-4" /> Household Impact
+                      </span>
+                      <span className="font-mono text-emerald-300 font-bold text-[11px]">
+                        {impactMetrics.communityResiliencePoints} PTS
+                      </span>
+                    </div>
+                    <div className="text-3xl font-black font-mono text-amber-300">
+                      {impactMetrics.berkeleyCigarettesAvoided} Cigarettes
+                    </div>
+                    <p className="text-xs text-slate-300">
+                      Avoided per person today based on the Berkeley Earth PM2.5 cigarette equivalence formula.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab('impact')}
+                      className="text-xs font-bold text-cyan-400 hover:text-cyan-300 flex items-center space-x-1 pt-1"
+                    >
+                      <span>View Transparent Physics Proofs</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
               </div>
+            )}
 
-              {/* Side Quick Action Cards */}
-              <div className="lg:col-span-4 space-y-4">
-                {/* Corsi-Rosenthal Quick Hack Card */}
-                <div className="p-5 rounded-2xl glass-panel space-y-2.5 glass-card-interactive border border-emerald-500/20">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-emerald-400 flex items-center gap-1.5">
-                      <Wrench className="w-4 h-4" /> Recommended Hack
-                    </span>
-                    <span className="font-mono text-cyan-300 font-bold text-[11px]">$58 / ₹4,800</span>
-                  </div>
-                  <h3 className="text-sm font-bold text-white">The Corsi-Rosenthal Box</h3>
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    Build a 4-filter MERV 13 box fan cube. Delivers <strong>430 CFM of Clean Air Delivery Rate (CADR)</strong>—outperforming $500 commercial HEPA units.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setActiveTab('indoor_hacks')}
-                    className="text-xs font-bold text-emerald-400 hover:text-emerald-300 flex items-center space-x-1 pt-1"
-                  >
-                    <span>Launch CADR & ACH Simulator</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
+            {activeTab === 'diurnal' && (
+              <DiurnalRoutineOptimizer
+                city={selectedCity}
+                pollutants={pollutants}
+                atmosphere={atmosphere}
+                familyProfile={familyProfile}
+              />
+            )}
 
-                {/* Diurnal Solar Window Card */}
-                <div className="p-5 rounded-2xl glass-panel space-y-2.5 glass-card-interactive border border-amber-500/20">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-amber-400 flex items-center gap-1.5">
-                      <Calendar className="w-4 h-4" /> Diurnal Optimization
-                    </span>
-                    <span className="font-mono text-emerald-400 font-bold text-[11px]">12:30 - 15:00</span>
-                  </div>
-                  <h3 className="text-sm font-bold text-white">Solar Convective Aeration</h3>
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    Solar insolation lifts the boundary layer inversion cap up to 900m at midday. Open opposing windows for 20 minutes to flush indoor CO2 without trapping nocturnal smog.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setActiveTab('diurnal')}
-                    className="text-xs font-bold text-amber-400 hover:text-amber-300 flex items-center space-x-1 pt-1"
-                  >
-                    <span>Inspect 24h Routine Timeline</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
+            {activeTab === 'indoor_hacks' && <IndoorHacksLab familyProfile={familyProfile} />}
 
-                {/* Direct Impact Preview Card */}
-                <div className="p-5 rounded-2xl glass-panel space-y-2.5 glass-card-interactive border border-rose-500/20">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-cyan-400 flex items-center gap-1.5">
-                      <Flame className="w-4 h-4" /> Household Impact
-                    </span>
-                    <span className="font-mono text-emerald-300 font-bold text-[11px]">
-                      {impactMetrics.communityResiliencePoints} PTS
-                    </span>
-                  </div>
-                  <div className="text-3xl font-black font-mono text-amber-300">
-                    {impactMetrics.berkeleyCigarettesAvoided} Cigarettes
-                  </div>
-                  <p className="text-xs text-slate-300">
-                    Avoided per person today based on the Berkeley Earth PM2.5 cigarette equivalence formula.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setActiveTab('impact')}
-                    className="text-xs font-bold text-cyan-400 hover:text-cyan-300 flex items-center space-x-1 pt-1"
-                  >
-                    <span>View Transparent Physics Proofs</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
+            {activeTab === 'alternatives' && (
+              <SustainableAlternatives
+                familyProfile={familyProfile}
+                selectedAlternatives={selectedAlternatives}
+                onToggleAlternative={handleToggleAlternative}
+              />
+            )}
 
-          {activeTab === 'diurnal' && (
-            <DiurnalRoutineOptimizer
-              city={selectedCity}
-              pollutants={pollutants}
-              atmosphere={atmosphere}
-              familyProfile={familyProfile}
-            />
-          )}
+            {activeTab === 'impact' && (
+              <ImpactExplainer metrics={impactMetrics} familyProfile={familyProfile} />
+            )}
 
-          {activeTab === 'indoor_hacks' && <IndoorHacksLab familyProfile={familyProfile} />}
-
-          {activeTab === 'alternatives' && (
-            <SustainableAlternatives
-              familyProfile={familyProfile}
-              selectedAlternatives={selectedAlternatives}
-              onToggleAlternative={handleToggleAlternative}
-            />
-          )}
-
-          {activeTab === 'impact' && (
-            <ImpactExplainer metrics={impactMetrics} familyProfile={familyProfile} />
-          )}
-
-          {activeTab === 'community' && (
-            <CommunityResilienceBoard city={selectedCity} pollutants={pollutants} />
-          )}
+            {activeTab === 'community' && (
+              <CommunityResilienceBoard city={selectedCity} pollutants={pollutants} />
+            )}
+          </ErrorBoundary>
         </div>
       </main>
 
