@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { CityPreset, AirPollutantMetrics, AtmosphericMetrics, FamilyProfile, GenAIChatMessage } from '../types';
 import { askGeminiSmogAssistant } from '../services/geminiService';
+import { logger } from '../utils/logger';
 
 interface SmogCopilotProps {
   city: CityPreset;
@@ -92,8 +93,8 @@ Ask me for:
         familyProfile
       );
       setMessages((prev) => [...prev, assistantMessage]);
-    } catch (err) {
-      console.error('Chat error:', err);
+    } catch (err: unknown) {
+      logger.error('SmogCopilot', 'Chat error during Gemini inference', err);
     } finally {
       setIsLoading(false);
     }

@@ -347,10 +347,11 @@ export const CommunityResilienceBoard: React.FC<CommunityResilienceBoardProps> =
 
             <form onSubmit={handleCreateReport} className="space-y-3.5 text-xs">
               <div>
-                <label className="text-slate-300 font-semibold block mb-1">
+                <label htmlFor="report-neighborhood" className="text-slate-300 font-semibold block mb-1">
                   Neighborhood / Location:
                 </label>
                 <input
+                  id="report-neighborhood"
                   type="text"
                   required
                   placeholder="e.g. South Outer Ring Road Sector 4"
@@ -361,10 +362,11 @@ export const CommunityResilienceBoard: React.FC<CommunityResilienceBoardProps> =
               </div>
 
               <div>
-                <label className="text-slate-300 font-semibold block mb-1">
+                <label htmlFor="report-description" className="text-slate-300 font-semibold block mb-1">
                   Incident Description & Source:
                 </label>
                 <textarea
+                  id="report-description"
                   required
                   rows={3}
                   placeholder="e.g. Municipal dry leaf & plastic burning causing visible dense white smoke; blowing into nearby school playground."
@@ -375,8 +377,9 @@ export const CommunityResilienceBoard: React.FC<CommunityResilienceBoardProps> =
               </div>
 
               <div>
-                <label className="text-slate-300 font-semibold block mb-1">Severity Level:</label>
+                <label htmlFor="report-severity" className="text-slate-300 font-semibold block mb-1">Severity Level:</label>
                 <select
+                  id="report-severity"
                   value={newSeverity}
                   onChange={(e) =>
                     setNewSeverity(e.target.value as 'EMERGENCY' | 'WARNING' | 'INFO')

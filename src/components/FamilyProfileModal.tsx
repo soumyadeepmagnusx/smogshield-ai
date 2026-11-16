@@ -67,10 +67,11 @@ export const FamilyProfileModal: React.FC<FamilyProfileModalProps> = ({
           {/* Section 1: Household Name & Member Count */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="text-slate-300 font-semibold block mb-1">
+              <label htmlFor="profile-family-name" className="text-slate-300 font-semibold block mb-1">
                 Family / Household Identifier:
               </label>
               <input
+                id="profile-family-name"
                 type="text"
                 required
                 value={formData.familyName}
@@ -79,10 +80,11 @@ export const FamilyProfileModal: React.FC<FamilyProfileModalProps> = ({
               />
             </div>
             <div>
-              <label className="text-slate-300 font-semibold block mb-1">
+              <label htmlFor="profile-member-count" className="text-slate-300 font-semibold block mb-1">
                 Total Household Members:
               </label>
               <input
+                id="profile-member-count"
                 type="number"
                 min="1"
                 max="15"
@@ -130,8 +132,9 @@ export const FamilyProfileModal: React.FC<FamilyProfileModalProps> = ({
           {/* Section 3: Housing & Insulation */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="text-slate-300 font-semibold block mb-1">Dwelling Type:</label>
+              <label htmlFor="profile-housing-type" className="text-slate-300 font-semibold block mb-1">Dwelling Type:</label>
               <select
+                id="profile-housing-type"
                 value={formData.housingType}
                 onChange={(e) =>
                   setFormData({ ...formData, housingType: e.target.value as HousingType })
@@ -145,10 +148,11 @@ export const FamilyProfileModal: React.FC<FamilyProfileModalProps> = ({
             </div>
 
             <div>
-              <label className="text-slate-300 font-semibold block mb-1">
+              <label htmlFor="profile-insulation-level" className="text-slate-300 font-semibold block mb-1">
                 Window & Sash Insulation:
               </label>
               <select
+                id="profile-insulation-level"
                 value={formData.insulationLevel}
                 onChange={(e) =>
                   setFormData({ ...formData, insulationLevel: e.target.value as InsulationLevel })
@@ -165,10 +169,11 @@ export const FamilyProfileModal: React.FC<FamilyProfileModalProps> = ({
           {/* Section 4: Heating & Cooking Energy */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="text-slate-300 font-semibold block mb-1">
+              <label htmlFor="profile-cooking-fuel" className="text-slate-300 font-semibold block mb-1">
                 Primary Cooking Method:
               </label>
               <select
+                id="profile-cooking-fuel"
                 value={formData.cookingFuel}
                 onChange={(e) =>
                   setFormData({ ...formData, cookingFuel: e.target.value as CookingFuel })
@@ -182,10 +187,11 @@ export const FamilyProfileModal: React.FC<FamilyProfileModalProps> = ({
             </div>
 
             <div>
-              <label className="text-slate-300 font-semibold block mb-1">
+              <label htmlFor="profile-heating-type" className="text-slate-300 font-semibold block mb-1">
                 Primary Winter Space Heating:
               </label>
               <select
+                id="profile-heating-type"
                 value={formData.heatingType}
                 onChange={(e) =>
                   setFormData({ ...formData, heatingType: e.target.value as HeatingType })
@@ -203,10 +209,11 @@ export const FamilyProfileModal: React.FC<FamilyProfileModalProps> = ({
           {/* Section 5: Commute Mode & Air Purifiers */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="text-slate-300 font-semibold block mb-1">
+              <label htmlFor="profile-commute-mode" className="text-slate-300 font-semibold block mb-1">
                 Daily Commute Mode:
               </label>
               <select
+                id="profile-commute-mode"
                 value={formData.commuteMode}
                 onChange={(e) =>
                   setFormData({ ...formData, commuteMode: e.target.value as CommuteMode })

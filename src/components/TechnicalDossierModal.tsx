@@ -13,13 +13,26 @@ interface TechnicalDossierModalProps {
   onClose: () => void;
 }
 
+type DossierTab = 'architecture' | 'physics' | 'security' | 'a11y';
+
+interface DossierTabItem {
+  id: DossierTab;
+  label: string;
+  icon: typeof Layers;
+}
+
+const DOSSIER_TABS: DossierTabItem[] = [
+  { id: 'architecture', label: '1. System Architecture', icon: Layers },
+  { id: 'physics', label: '2. Physical & Health Equations', icon: Cpu },
+  { id: 'security', label: '3. Security & Prompt Defense', icon: ShieldCheck },
+  { id: 'a11y', label: '4. WCAG 2.1 A11y & Performance', icon: Eye },
+];
+
 export const TechnicalDossierModal: React.FC<TechnicalDossierModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  const [activeTab, setActiveTab] = useState<'architecture' | 'physics' | 'security' | 'a11y'>(
-    'architecture'
-  );
+  const [activeTab, setActiveTab] = useState<DossierTab>('architecture');
 
   if (!isOpen) return null;
 
@@ -58,18 +71,13 @@ export const TechnicalDossierModal: React.FC<TechnicalDossierModalProps> = ({
 
         {/* Tab Navigation */}
         <div className="flex items-center space-x-2 border-b border-slate-800 pb-2">
-          {[
-            { id: 'architecture', label: '1. System Architecture', icon: Layers },
-            { id: 'physics', label: '2. Physical & Health Equations', icon: Cpu },
-            { id: 'security', label: '3. Security & Prompt Defense', icon: ShieldCheck },
-            { id: 'a11y', label: '4. WCAG 2.1 A11y & Performance', icon: Eye },
-          ].map((tab) => {
+          {DOSSIER_TABS.map((tab) => {
             const Icon = tab.icon;
             return (
               <button
                 key={tab.id}
                 type="button"
-                onClick={() => setActiveTab(tab.id as any)}
+                onClick={() => setActiveTab(tab.id)}
                 className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition-all ${
                   activeTab === tab.id
                     ? 'bg-emerald-500 text-black font-bold shadow-md shadow-emerald-950/40'

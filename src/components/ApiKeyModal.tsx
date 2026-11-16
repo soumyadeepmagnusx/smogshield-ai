@@ -74,10 +74,11 @@ export const ApiKeyModal: React.FC<ApiKeyModalProps> = ({ isOpen, onClose }) => 
 
         <form onSubmit={handleSave} className="space-y-3 text-xs">
           <div>
-            <label className="text-slate-300 font-semibold block mb-1">
+            <label htmlFor="gemini-api-key" className="text-slate-300 font-semibold block mb-1">
               Gemini API Key (Optional):
             </label>
             <input
+              id="gemini-api-key"
               type="password"
               placeholder="AIzaSy..."
               value={keyInput}

@@ -27,6 +27,25 @@ import { PitchDeckModal } from './components/PitchDeckModal';
 import { TechnicalDossierModal } from './components/TechnicalDossierModal';
 import { ApiKeyModal } from './components/ApiKeyModal';
 
+type AppTabId = 'copilot' | 'diurnal' | 'indoor_hacks' | 'alternatives' | 'impact' | 'community';
+
+interface AppTab {
+  id: AppTabId;
+  label: string;
+  icon: typeof Bot;
+  badge: string;
+  color: string;
+}
+
+const APP_TABS: AppTab[] = [
+  { id: 'copilot', label: 'AeroGuard Copilot', icon: Bot, badge: 'Gemini AI', color: 'from-emerald-500 to-teal-400' },
+  { id: 'diurnal', label: 'Diurnal Routine Optimizer', icon: Calendar, badge: '24h Timeline', color: 'from-amber-500 to-orange-400' },
+  { id: 'indoor_hacks', label: 'Indoor Hacks & DIY Lab', icon: Wrench, badge: 'Corsi-Rosenthal', color: 'from-cyan-500 to-blue-400' },
+  { id: 'alternatives', label: 'Sustainable Alternatives', icon: Leaf, badge: 'Active', color: 'from-teal-500 to-emerald-400' },
+  { id: 'impact', label: 'Direct Impact Engine', icon: Flame, badge: 'Cigs Cut', color: 'from-rose-500 to-pink-400' },
+  { id: 'community', label: 'Community Resilience', icon: Users, badge: 'OASIS CAP v1.2', color: 'from-purple-500 to-indigo-400' },
+];
+
 export const App: React.FC = () => {
   // Active City Selection (Defaults to Delhi NCR)
   const [selectedCity, setSelectedCity] = useState<CityPreset>(CITY_PRESETS[0]);
@@ -171,21 +190,20 @@ export const App: React.FC = () => {
           className="flex items-center gap-2 overflow-x-auto no-scrollbar p-2 rounded-2xl glass-panel shadow-2xl"
           aria-label="Main Application Sections"
         >
-          {[
-            { id: 'copilot', label: 'AeroGuard Copilot', icon: Bot, badge: 'Gemini AI', color: 'from-emerald-500 to-teal-400' },
-            { id: 'diurnal', label: 'Diurnal Routine Optimizer', icon: Calendar, badge: '24h Timeline', color: 'from-amber-500 to-orange-400' },
-            { id: 'indoor_hacks', label: 'Indoor Hacks & DIY Lab', icon: Wrench, badge: 'Corsi-Rosenthal', color: 'from-cyan-500 to-blue-400' },
-            { id: 'alternatives', label: 'Sustainable Alternatives', icon: Leaf, badge: `${selectedAlternatives.length} Active`, color: 'from-teal-500 to-emerald-400' },
-            { id: 'impact', label: 'Direct Impact Engine', icon: Flame, badge: `${impactMetrics.berkeleyCigarettesAvoided} Cigs Cut`, color: 'from-rose-500 to-pink-400' },
-            { id: 'community', label: 'Community Resilience', icon: Users, badge: 'OASIS CAP v1.2', color: 'from-purple-500 to-indigo-400' },
-          ].map((tab) => {
+          {APP_TABS.map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
+            const displayBadge =
+              tab.id === 'alternatives'
+                ? `${selectedAlternatives.length} Active`
+                : tab.id === 'impact'
+                  ? `${impactMetrics.berkeleyCigarettesAvoided} Cigs Cut`
+                  : tab.badge;
             return (
               <button
                 key={tab.id}
                 type="button"
-                onClick={() => setActiveTab(tab.id as any)}
+                onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-200 focus-visible:ring-2 focus-visible:ring-emerald-400 focus:outline-none ${
                   isActive
                     ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-lg shadow-emerald-950/60 ring-1 ring-emerald-400/50 scale-[1.02]'
@@ -200,7 +218,7 @@ export const App: React.FC = () => {
                     isActive ? 'bg-black/40 text-emerald-300 border border-emerald-400/30' : 'bg-slate-800/80 text-slate-400 border border-white/5'
                   }`}
                 >
-                  {tab.badge}
+                  {displayBadge}
                 </span>
               </button>
             );
